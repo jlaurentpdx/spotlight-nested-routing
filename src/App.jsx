@@ -9,20 +9,19 @@ import fetchHyrule from './services/hyrule';
 import './App.css';
 import { useState, useEffect } from 'react';
 
-function Categories({ hyrule: data }) {
-  const { url } = useRouteMatch();
-  console.log(data);
+function Categories({ hyrule: { equipment, materials, monsters, treasure } }) {
+  console.log(equipment);
+  console.log(materials);
+  console.log(monsters);
+  console.log(treasure);
+
   return (
     <>
       <div>
-        <h1>Categories</h1>;
-      </div>
-      <div>
-        {hyrule.map((item) => {
-          <div key={item.id}>
-            <Link to={`${url}/${id}`}>{item.name}</Link>;
-          </div>;
-        })}
+        <h1>Categories</h1>
+        {treasure
+          ? treasure.map((item) => <p key={item.id}>{item.name}</p>)
+          : null}
       </div>
     </>
   );
@@ -38,9 +37,10 @@ export default function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchHyrule();
+      const { data } = await fetchHyrule();
       setHyrule(data);
       setLoading(false);
+      console.log(data);
     };
     fetchData();
   }, []);
