@@ -7,9 +7,18 @@ import {
 } from 'react-router-dom';
 import fetchHyrule from './services/hyrule';
 import './App.css';
+import { useState, useEffect } from 'react';
 
-function Categories() {
-  return <h1>Categories</h1>;
+function Categories({ hyrule }) {
+  console.log(hyrule.data);
+  return (
+    <>
+      <div>
+        <h1>Categories</h1>;
+      </div>
+      <div></div>
+    </>
+  );
 }
 
 function Home() {
@@ -17,7 +26,22 @@ function Home() {
 }
 
 export default function App() {
-  fetchHyrule();
+  const [hyrule, setHyrule] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchHyrule();
+      setHyrule(data);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  if (loading) {
+    <h2>loading</h2>;
+  }
+
   return (
     <Router>
       <div style={{ width: 1000, margin: '0 auto' }}>
@@ -33,7 +57,7 @@ export default function App() {
           <Home />
         </Route>
         <Route path="/categories">
-          <Categories />
+          <Categories hyrule={hyrule} />
         </Route>
       </div>
     </Router>
