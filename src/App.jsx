@@ -9,14 +9,21 @@ import fetchHyrule from './services/hyrule';
 import './App.css';
 import { useState, useEffect } from 'react';
 
-function Categories({ hyrule }) {
-  console.log(hyrule.data);
+function Categories({ hyrule: data }) {
+  const { url } = useRouteMatch();
+  console.log(data);
   return (
     <>
       <div>
         <h1>Categories</h1>;
       </div>
-      <div></div>
+      <div>
+        {hyrule.map((item) => {
+          <div key={item.id}>
+            <Link to={`${url}/${id}`}>{item.name}</Link>;
+          </div>;
+        })}
+      </div>
     </>
   );
 }
@@ -26,7 +33,7 @@ function Home() {
 }
 
 export default function App() {
-  const [hyrule, setHyrule] = useState([]);
+  const [hyrule, setHyrule] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

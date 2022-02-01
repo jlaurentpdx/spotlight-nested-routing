@@ -1,5 +1,7 @@
 export default async function fetchHyrule() {
-  const resp = await fetch('https://botw-compendium.herokuapp.com/api/v2');
+  const resp = await fetch(
+    'https://botw-compendium.herokuapp.com/api/v2/category/treasure'
+  );
   const data = await resp.json();
   console.log(data);
 
